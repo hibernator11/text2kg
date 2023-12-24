@@ -40,12 +40,12 @@ def extract_triplets_typed(text):
     return triplets
 
 # Load model and tokenizer
-tokenizer = AutoTokenizer.from_pretrained("Babelscape/mrebel-large-32", src_lang="en_XX", tgt_lang="tp_XX") 
+tokenizer = AutoTokenizer.from_pretrained("Babelscape/mrebel-large", src_lang="en_XX", tgt_lang="tp_XX") 
 # Here we set English ("en_XX") as source language. To change the source language swap the first token of the input for your desired language or change to supported language. For catalan ("ca_XX") or greek ("el_EL") (not included in mBART pretraining) you need a workaround:
 # tokenizer._src_lang = "ca_XX"
 # tokenizer.cur_lang_code_id = tokenizer.convert_tokens_to_ids("ca_XX")
 # tokenizer.set_src_lang_special_tokens("ca_XX")
-model = AutoModelForSeq2SeqLM.from_pretrained("Babelscape/mrebel-large-32")
+model = AutoModelForSeq2SeqLM.from_pretrained("Babelscape/mrebel-large")
 gen_kwargs = {
     "max_length": 256,
     "length_penalty": 0,
@@ -67,9 +67,9 @@ org_folder = 'nls-text-indiaPapers'
 org_folder = 'wikipedia'
 
 folder = input_folder + org_folder + '/'
-text_file = 'napoleon-en'
+#text_file = 'napoleon-en'
 #text_file = 'sn84020422-1962-04-19-ed-1-seq-4-ocr'
-#text_file = '74463059'
+text_file = '74463059'
 with open(folder+text_file+'.txt') as f:
     text = f.read()
     #print(wrap(text, 250))
@@ -98,7 +98,7 @@ with open(folder+text_file+'.txt') as f:
             for relation in relations:
                 kb.add_relation(relation)
 
-    with open('output/pickle/kb_rebel32_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
+    with open('output/pickle/kb_rebel400_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
             pickle.dump(kb, f)
     
    
