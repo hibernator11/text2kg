@@ -1,11 +1,16 @@
 import wikipedia
 from SPARQLWrapper import SPARQLWrapper, JSON
+from collections import Counter
 
 
 class KG():
     def __init__(self):
         self.relations = []
         self.entities = {}
+        self.total_words = 0
+    
+    def set_total_words(self, words_text):
+        self.total_words = words_text
 
     def are_relations_equal(self, r1, r2):
         return all(r1[attr] == r2[attr] for attr in ["head", "type", "tail"])
@@ -98,10 +103,19 @@ class KG():
             print(f"  {r}")
         print("total Entities:" + str(len(self.entities)))
         print("total Relations:" + str(len(self.relations)))
+        print("Richness:" + str(self.richness()))
+        print("Total words:" + str(self.total_words))
 
-    # def save_model(self, text_file):
-    #     with open('kb_'+ text_file+'.pickle', 'wb') as f:
-    #         pickle.dump(self, f)
-            
-    # def load_model(self, text_file):
-    #     self = pickle.load('kb_'+ text_file+'.pickle')          
+    def richness(self):
+        richness = 0
+        types = []
+        for r in self.relations:
+            #print(f"  {r}")
+            print(r['type'])
+            types.append(r['type'])
+        
+        counter = Counter(types)
+        #print(counter)
+        #print(len(counter))
+        richness = len(counter)
+        return richness

@@ -23,3 +23,4 @@ text_file = sys.argv[3]
 with open('output/pickle/kb_rebel'+model+'_'+org_folder+'_'+ text_file+'.pickle', 'rb') as pickle_file:
     kg = pickle.load(pickle_file)
     kg.print()
+    

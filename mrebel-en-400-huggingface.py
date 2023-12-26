@@ -1,7 +1,6 @@
 from KG import KG
 import pickle
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-#from textwrap import wrap
 from nltk.tokenize import sent_tokenize
 import sys
 
@@ -60,33 +59,19 @@ gen_kwargs = {
 }
 
 
-# Text to extract triplets from
-#text = 'The Red Hot Chili Peppers were formed in Los Angeles by Kiedis, Flea, guitarist Hillel Slovak and drummer Jack Irons.'
-
 # create kb
 kg = KG()
+
 text = ''
 input_folder = 'input/'
-
 org_folder = sys.argv[1]
-
-#org_folder = 'lc'
-#org_folder = 'nls-text-indiaPapers'
-#org_folder = 'wikipedia'
-
 folder = input_folder + org_folder + '/'
-#text_file = 'napoleon-en'
-#text_file = 'cervantes-en'
-#text_file = 'sn84020422-1962-04-19-ed-1-seq-4-ocr'
-#text_file = '74463059'
-
 text_file = sys.argv[2]
 
 with open(folder+text_file+'.txt') as f:
     text = f.read()
-    #print(wrap(text, 250))
+    kg.set_total_words(len(text.split()))
     
-    #for t in wrap(text, 250):
     for t in sent_tokenize(text):
         print(t) 
         # Tokenizer text
@@ -114,4 +99,3 @@ with open(folder+text_file+'.txt') as f:
     with open('output/pickle/kb_rebel400_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
         pickle.dump(kg, f)
     
-   
