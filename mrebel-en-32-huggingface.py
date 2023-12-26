@@ -1,7 +1,12 @@
-from KB import KB
+from KG import KG
 import pickle
 from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-from textwrap import wrap
+#from textwrap import wrap
+from nltk.tokenize import sent_tokenize
+import sys
+
+# python3 mrebel-en-32-huggingface.py wikipedia cervantes-en
+# python3 mrebel-en-32-huggingface.py nls-text-indiaPapers 74463059
 
 def extract_triplets_typed(text):
     triplets = []
@@ -58,23 +63,31 @@ gen_kwargs = {
 # Text to extract triplets from
 #text = 'The Red Hot Chili Peppers were formed in Los Angeles by Kiedis, Flea, guitarist Hillel Slovak and drummer Jack Irons.'
 
-# create kb
-kb = KB()
+# create kg
+kg = KG()
 text = ''
 input_folder = 'input/'
-org_folder = 'lc'
-org_folder = 'nls-text-indiaPapers'
-org_folder = 'wikipedia'
+
+org_folder = sys.argv[1]
+
+#org_folder = 'lc'
+#org_folder = 'nls-text-indiaPapers'
+#org_folder = 'wikipedia'
 
 folder = input_folder + org_folder + '/'
-text_file = 'napoleon-en'
+#text_file = 'napoleon-en'
+#text_file = 'cervantes-en'
 #text_file = 'sn84020422-1962-04-19-ed-1-seq-4-ocr'
 #text_file = '74463059'
+
+text_file = sys.argv[2]
+
 with open(folder+text_file+'.txt') as f:
     text = f.read()
     #print(wrap(text, 250))
     
-    for t in wrap(text, 250):
+    #for t in wrap(text, 250):
+    for t in sent_tokenize(text):
         print(t) 
         # Tokenizer text
         model_inputs = tokenizer(t, max_length=256, padding=True, truncation=True, return_tensors = 'pt')
@@ -96,9 +109,9 @@ with open(folder+text_file+'.txt') as f:
             #print(extract_triplets_typed(sentence))
             relations = extract_triplets_typed(sentence)
             for relation in relations:
-                kb.add_relation(relation)
+                kg.add_relation(relation)
 
     with open('output/pickle/kb_rebel32_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
-            pickle.dump(kb, f)
+        pickle.dump(kg, f)
     
    
