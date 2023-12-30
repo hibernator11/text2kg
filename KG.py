@@ -101,17 +101,21 @@ class KG():
         print("Relations:" + str(len(self.relations)))
         for r in self.relations:
             print(f"  {r}")
-        print("total Entities:" + str(len(self.entities)))
-        print("total Relations:" + str(len(self.relations)))
-        print("Richness:" + str(self.richness()))
-        print("Total words:" + str(self.total_words))
+        
+        try:
+            print("total Entities:" + str(len(self.entities)))
+            print("total Relations:" + str(len(self.relations)))
+            print("Richness:" + str(self.richness()))
+            print("Total words:" + str(self.total_words))
+        except:
+            print("An exception occurred")
 
     def richness(self):
         richness = 0
         types = []
         for r in self.relations:
             #print(f"  {r}")
-            print(r['type'])
+            #print(r['type'])
             types.append(r['type'])
         
         counter = Counter(types)
