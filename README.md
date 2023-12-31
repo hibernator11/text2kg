@@ -34,5 +34,6 @@ This section presents how to use the scripts included in this project:
 - python3 load-kg.py 32 lc sn84020422-1962-04-19-ed-1-seq-4-ocr
 
 ## References
-- https://github.com/Babelscape/rebel/blob/main/docs/EMNLP_2021_REBEL__Camera_Ready_.pdf
+- Pere-Lluís Huguet Cabot, Simone Tedeschi, Axel-Cyrille Ngonga Ngomo, Roberto Navigli: REDFM: a Filtered and Multilingual Relation Extraction Dataset. ACL (1) 2023: 4326-4343. https://doi.org/10.18653/v1/2023.acl-long.237
+- Candela, G., Gabriëls, N., Chambers, S., Dobreva, M., Ames, S., Ferriter, M., Fitzgerald, N., Harbo, V., Hofmann, K., Holownia, O., Irollo, A., Mahey, M., Manchester, E., Pham, T.-A., Potter, A. and Van Keer, E. (2023), "A checklist to publish collections as data in GLAM institutions", Global Knowledge, Memory and Communication, Vol. ahead-of-print No. ahead-of-print. https://doi.org/10.1108/GKMC-06-2023-0195
 - https://medium.com/nlplanet/building-a-knowledge-base-from-texts-a-full-practical-example-8dbbffb912fa
