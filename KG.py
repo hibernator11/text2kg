@@ -1,6 +1,8 @@
 import wikipedia
 from SPARQLWrapper import SPARQLWrapper, JSON
 from collections import Counter
+import IPython
+from pyvis.network import Network
 
 
 class KG():
@@ -101,11 +103,12 @@ class KG():
         print("Relations:" + str(len(self.relations)))
         for r in self.relations:
             print(f"  {r}")
-        
+              
         try:
             print("total Entities:" + str(len(self.entities)))
             print("total Relations:" + str(len(self.relations)))
             print("Richness:" + str(self.richness()))
+            print("Wikidata ids:" + str(self.get_wikidata_ids()))
             print("Total words:" + str(self.total_words))
         except:
             print("An exception occurred")
@@ -123,3 +126,36 @@ class KG():
         #print(len(counter))
         richness = len(counter)
         return richness
+    
+    def save_network_html(self, filename="network.html"):
+        # create network
+        net = Network(directed=True, width="700px", height="700px", bgcolor="#eeeeee")
+    
+        # nodes
+        color_entity = "#00FF00"
+        for e in self.entities:
+            net.add_node(e, shape="circle", color=color_entity)
+    
+        # edges
+        for r in self.relations:
+            net.add_edge(r["head"], r["tail"],
+                        title=r["type"], label=r["type"])
+            
+        # save network
+        net.repulsion(
+            node_distance=200,
+            central_gravity=0.2,
+            spring_length=200,
+            spring_strength=0.05,
+            damping=0.09
+        )
+        net.set_edge_smooth('dynamic')
+        net.save_graph(filename)
+        
+    def get_wikidata_ids(self):
+        wikidata_ids = []
+        for r in self.entities.items():
+            #print(r[1]['idWikidata'])
+            if 'idWikidata' in r[1] and r[1]['idWikidata'] != None:
+                wikidata_ids.append(r[1]['idWikidata'])
+        return wikidata_ids

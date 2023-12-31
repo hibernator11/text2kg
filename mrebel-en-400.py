@@ -4,8 +4,8 @@ from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 from nltk.tokenize import sent_tokenize
 import sys
 
-# python3 mrebel-en-400-huggingface.py wikipedia cervantes-en
-# python3 mrebel-en-400-huggingface.py nls-text-indiaPapers 74463059
+# python3 mrebel-en-400.py wikipedia cervantes-en
+# python3 mrebel-en-400.py nls-text-indiaPapers 74463059
 
 def extract_triplets_typed(text):
     triplets = []
