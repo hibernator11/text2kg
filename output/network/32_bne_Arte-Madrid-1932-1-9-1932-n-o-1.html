@@ -1,0 +1,258 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 700px;
+                 height: 700px;
+                 background-color: #eeeeee;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+             #loadingBar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width: 700px;
+                 height: 700px;
+                 background-color:rgba(200,200,200,0.8);
+                 -webkit-transition: all 0.5s ease;
+                 -moz-transition: all 0.5s ease;
+                 -ms-transition: all 0.5s ease;
+                 -o-transition: all 0.5s ease;
+                 transition: all 0.5s ease;
+                 opacity:1;
+             }
+
+             #bar {
+                 position:absolute;
+                 top:0px;
+                 left:0px;
+                 width:20px;
+                 height:20px;
+                 margin:auto auto auto auto;
+                 border-radius:11px;
+                 border:2px solid rgba(30,30,30,0.05);
+                 background: rgb(0, 173, 246); /* Old browsers */
+                 box-shadow: 2px 0px 4px rgba(0,0,0,0.4);
+             }
+
+             #border {
+                 position:absolute;
+                 top:10px;
+                 left:10px;
+                 width:500px;
+                 height:23px;
+                 margin:auto auto auto auto;
+                 box-shadow: 0px 0px 4px rgba(0,0,0,0.2);
+                 border-radius:10px;
+             }
+
+             #text {
+                 position:absolute;
+                 top:8px;
+                 left:530px;
+                 width:30px;
+                 height:50px;
+                 margin:auto auto auto auto;
+                 font-size:22px;
+                 color: #000000;
+             }
+
+             div.outerBorder {
+                 position:relative;
+                 top:400px;
+                 width:600px;
+                 height:44px;
+                 margin:auto auto auto auto;
+                 border:8px solid rgba(0,0,0,0.1);
+                 background: rgb(252,252,252); /* Old browsers */
+                 background: -moz-linear-gradient(top,  rgba(252,252,252,1) 0%, rgba(237,237,237,1) 100%); /* FF3.6+ */
+                 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(252,252,252,1)), color-stop(100%,rgba(237,237,237,1))); /* Chrome,Safari4+ */
+                 background: -webkit-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Chrome10+,Safari5.1+ */
+                 background: -o-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* Opera 11.10+ */
+                 background: -ms-linear-gradient(top,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* IE10+ */
+                 background: linear-gradient(to bottom,  rgba(252,252,252,1) 0%,rgba(237,237,237,1) 100%); /* W3C */
+                 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfcfc', endColorstr='#ededed',GradientType=0 ); /* IE6-9 */
+                 border-radius:72px;
+                 box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+             }
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+            <div id="loadingBar">
+              <div class="outerBorder">
+                <div id="text">0%</div>
+                <div id="border">
+                  <div id="bar"></div>
+                </div>
+              </div>
+            </div>
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#00FF00", "id": "4", "label": "4", "shape": "circle"}, {"color": "#00FF00", "id": "I", "label": "I", "shape": "circle"}, {"color": "#00FF00", "id": "Madrid", "label": "Madrid", "shape": "circle"}, {"color": "#00FF00", "id": "Spain", "label": "Spain", "shape": "circle"}, {"color": "#00FF00", "id": "Spaniards", "label": "Spaniards", "shape": "circle"}, {"color": "#00FF00", "id": "Administrative division", "label": "Administrative division", "shape": "circle"}, {"color": "#00FF00", "id": "Libros", "label": "Libros", "shape": "circle"}, {"color": "#00FF00", "id": "M", "label": "M", "shape": "circle"}, {"color": "#00FF00", "id": "F", "label": "F", "shape": "circle"}, {"color": "#00FF00", "id": "Esperpento", "label": "Esperpento", "shape": "circle"}, {"color": "#00FF00", "id": "Cabeza", "label": "Cabeza", "shape": "circle"}, {"color": "#00FF00", "id": "Misterio", "label": "Misterio", "shape": "circle"}, {"color": "#00FF00", "id": "N", "label": "N", "shape": "circle"}, {"color": "#00FF00", "id": "C", "label": "C", "shape": "circle"}, {"color": "#00FF00", "id": "\u00da", "label": "\u00da", "shape": "circle"}, {"color": "#00FF00", "id": "Achaemenid coinage", "label": "Achaemenid coinage", "shape": "circle"}, {"color": "#00FF00", "id": "Sensaciones", "label": "Sensaciones", "shape": "circle"}, {"color": "#00FF00", "id": "Formas", "label": "Formas", "shape": "circle"}, {"color": "#00FF00", "id": "Cubismo", "label": "Cubismo", "shape": "circle"}, {"color": "#00FF00", "id": "O", "label": "O", "shape": "circle"}, {"color": "#00FF00", "id": "Alejandro Ferrant y Fischermans", "label": "Alejandro Ferrant y Fischermans", "shape": "circle"}, {"color": "#00FF00", "id": "\u00c1ngel Ferrant", "label": "\u00c1ngel Ferrant", "shape": "circle"}, {"color": "#00FF00", "id": "Maestro", "label": "Maestro", "shape": "circle"}, {"color": "#00FF00", "id": "Recreo", "label": "Recreo", "shape": "circle"}, {"color": "#00FF00", "id": "Dise\u00f1o", "label": "Dise\u00f1o", "shape": "circle"}, {"color": "#00FF00", "id": "Arte", "label": "Arte", "shape": "circle"}, {"color": "#00FF00", "id": "Intellectual", "label": "Intellectual", "shape": "circle"}, {"color": "#00FF00", "id": "Forma viva", "label": "Forma viva", "shape": "circle"}, {"color": "#00FF00", "id": "Horas", "label": "Horas", "shape": "circle"}, {"color": "#00FF00", "id": "Minutos", "label": "Minutos", "shape": "circle"}, {"color": "#00FF00", "id": "Inercia", "label": "Inercia", "shape": "circle"}, {"color": "#00FF00", "id": "J", "label": "J", "shape": "circle"}, {"color": "#00FF00", "id": "F* (programming language)", "label": "F* (programming language)", "shape": "circle"}, {"color": "#00FF00", "id": "Foco", "label": "Foco", "shape": "circle"}, {"color": "#00FF00", "id": "Centros Ltd v Erhvervs- og Selskabsstyrelsen", "label": "Centros Ltd v Erhvervs- og Selskabsstyrelsen", "shape": "circle"}, {"color": "#00FF00", "id": "Elite", "label": "Elite", "shape": "circle"}, {"color": "#00FF00", "id": "Masa", "label": "Masa", "shape": "circle"}, {"color": "#00FF00", "id": "E", "label": "E", "shape": "circle"}, {"color": "#00FF00", "id": "Albert Gleizes", "label": "Albert Gleizes", "shape": "circle"}, {"color": "#00FF00", "id": "Locura", "label": "Locura", "shape": "circle"}, {"color": "#00FF00", "id": "Clase", "label": "Clase", "shape": "circle"}, {"color": "#00FF00", "id": "Taller", "label": "Taller", "shape": "circle"}, {"color": "#00FF00", "id": "A", "label": "A", "shape": "circle"}, {"color": "#00FF00", "id": "Plan", "label": "Plan", "shape": "circle"}, {"color": "#00FF00", "id": "S", "label": "S", "shape": "circle"}, {"color": "#00FF00", "id": "Duda", "label": "Duda", "shape": "circle"}, {"color": "#00FF00", "id": "H", "label": "H", "shape": "circle"}, {"color": "#00FF00", "id": "Sistema", "label": "Sistema", "shape": "circle"}, {"color": "#00FF00", "id": "Patio", "label": "Patio", "shape": "circle"}, {"color": "#00FF00", "id": "Buenos Aires", "label": "Buenos Aires", "shape": "circle"}, {"color": "#00FF00", "id": "Montevideo", "label": "Montevideo", "shape": "circle"}, {"color": "#00FF00", "id": "Pa\u00eds", "label": "Pa\u00eds", "shape": "circle"}, {"color": "#00FF00", "id": "Bullfighter", "label": "Bullfighter", "shape": "circle"}, {"color": "#00FF00", "id": "Ni\u00f1a", "label": "Ni\u00f1a", "shape": "circle"}, {"color": "#00FF00", "id": "Caballito, Buenos Aires", "label": "Caballito, Buenos Aires", "shape": "circle"}, {"color": "#00FF00", "id": "Flores", "label": "Flores", "shape": "circle"}, {"color": "#00FF00", "id": "Villa Crespo", "label": "Villa Crespo", "shape": "circle"}, {"color": "#00FF00", "id": "Gam\u00e1s", "label": "Gam\u00e1s", "shape": "circle"}, {"color": "#00FF00", "id": "Melod\u00eda", "label": "Melod\u00eda", "shape": "circle"}, {"color": "#00FF00", "id": "Pablo Picasso", "label": "Pablo Picasso", "shape": "circle"}, {"color": "#00FF00", "id": "Charter of the Rights of the Family", "label": "Charter of the Rights of the Family", "shape": "circle"}, {"color": "#00FF00", "id": "Art\u00e9s", "label": "Art\u00e9s", "shape": "circle"}, {"color": "#00FF00", "id": "Florent Fels", "label": "Florent Fels", "shape": "circle"}, {"color": "#00FF00", "id": "Diablos Motorcycle Club", "label": "Diablos Motorcycle Club", "shape": "circle"}, {"color": "#00FF00", "id": "Un d\u00eda", "label": "Un d\u00eda", "shape": "circle"}, {"color": "#00FF00", "id": "Jean Cocteau", "label": "Jean Cocteau", "shape": "circle"}, {"color": "#00FF00", "id": "Moises", "label": "Moises", "shape": "circle"}, {"color": "#00FF00", "id": "Pin", "label": "Pin", "shape": "circle"}, {"color": "#00FF00", "id": "Meanings of minor planet names: 33001\u201334000", "label": "Meanings of minor planet names: 33001\u201334000", "shape": "circle"}, {"color": "#00FF00", "id": "Idea", "label": "Idea", "shape": "circle"}, {"color": "#00FF00", "id": "Cosa", "label": "Cosa", "shape": "circle"}, {"color": "#00FF00", "id": "Colores", "label": "Colores", "shape": "circle"}, {"color": "#00FF00", "id": "Jean-Jacques Rousseau", "label": "Jean-Jacques Rousseau", "shape": "circle"}, {"color": "#00FF00", "id": "Aduaneros", "label": "Aduaneros", "shape": "circle"}, {"color": "#00FF00", "id": "Lienzo", "label": "Lienzo", "shape": "circle"}, {"color": "#00FF00", "id": "Futuro", "label": "Futuro", "shape": "circle"}, {"color": "#00FF00", "id": "Pasado", "label": "Pasado", "shape": "circle"}, {"color": "#00FF00", "id": "Griegos", "label": "Griegos", "shape": "circle"}, {"color": "#00FF00", "id": "Jean-Auguste-Dominique Ingres", "label": "Jean-Auguste-Dominique Ingres", "shape": "circle"}, {"color": "#00FF00", "id": "Eug\u00e8ne Delacroix", "label": "Eug\u00e8ne Delacroix", "shape": "circle"}, {"color": "#00FF00", "id": "Barcelona", "label": "Barcelona", "shape": "circle"}, {"color": "#00FF00", "id": "Uruguay", "label": "Uruguay", "shape": "circle"}, {"color": "#00FF00", "id": "Th\u00e9ophile Steinlen", "label": "Th\u00e9ophile Steinlen", "shape": "circle"}, {"color": "#00FF00", "id": "Henri de Toulouse-Lautrec", "label": "Henri de Toulouse-Lautrec", "shape": "circle"}, {"color": "#00FF00", "id": "Barradas", "label": "Barradas", "shape": "circle"}, {"color": "#00FF00", "id": "Juan Gris", "label": "Juan Gris", "shape": "circle"}, {"color": "#00FF00", "id": "Mar\u00eda Blanchard", "label": "Mar\u00eda Blanchard", "shape": "circle"}, {"color": "#00FF00", "id": "Renacimiento", "label": "Renacimiento", "shape": "circle"}, {"color": "#00FF00", "id": "Am\u00e9d\u00e9e Ozenfant", "label": "Am\u00e9d\u00e9e Ozenfant", "shape": "circle"}, {"color": "#00FF00", "id": "Jeanneret", "label": "Jeanneret", "shape": "circle"}, {"color": "#00FF00", "id": "Gris", "label": "Gris", "shape": "circle"}, {"color": "#00FF00", "id": "Color", "label": "Color", "shape": "circle"}, {"color": "#00FF00", "id": "Armed Police Corps", "label": "Armed Police Corps", "shape": "circle"}, {"color": "#00FF00", "id": "Blancas", "label": "Blancas", "shape": "circle"}, {"color": "#00FF00", "id": "Maya peoples", "label": "Maya peoples", "shape": "circle"}, {"color": "#00FF00", "id": "Aztecas UDLAP", "label": "Aztecas UDLAP", "shape": "circle"}, {"color": "#00FF00", "id": "Fa\u00e7ade", "label": "Fa\u00e7ade", "shape": "circle"}, {"color": "#00FF00", "id": "Puebloans", "label": "Puebloans", "shape": "circle"}, {"color": "#00FF00", "id": "Fallo", "label": "Fallo", "shape": "circle"}, {"color": "#00FF00", "id": "Oboe", "label": "Oboe", "shape": "circle"}, {"color": "#00FF00", "id": "Concierto", "label": "Concierto", "shape": "circle"}, {"color": "#00FF00", "id": "Problema", "label": "Problema", "shape": "circle"}, {"color": "#00FF00", "id": "Dos Caras", "label": "Dos Caras", "shape": "circle"}, {"color": "#00FF00", "id": "Vasco N\u00fa\u00f1ez de Balboa", "label": "Vasco N\u00fa\u00f1ez de Balboa", "shape": "circle"}, {"color": "#00FF00", "id": "Persona", "label": "Persona", "shape": "circle"}, {"color": "#00FF00", "id": "Person", "label": "Person", "shape": "circle"}, {"color": "#00FF00", "id": "Francisco Goya", "label": "Francisco Goya", "shape": "circle"}, {"color": "#00FF00", "id": "Pintor", "label": "Pintor", "shape": "circle"}, {"color": "#00FF00", "id": "R3hab discography", "label": "R3hab discography", "shape": "circle"}, {"color": "#00FF00", "id": "Camille Saint-Sa\u00ebns", "label": "Camille Saint-Sa\u00ebns", "shape": "circle"}, {"color": "#00FF00", "id": "William Shakespeare", "label": "William Shakespeare", "shape": "circle"}, {"color": "#00FF00", "id": "Nikolai Gogol", "label": "Nikolai Gogol", "shape": "circle"}, {"color": "#00FF00", "id": "Culture", "label": "Culture", "shape": "circle"}, {"color": "#00FF00", "id": "Marzo", "label": "Marzo", "shape": "circle"}, {"color": "#00FF00", "id": "Joaqu\u00edn Valverde Dur\u00e1n", "label": "Joaqu\u00edn Valverde Dur\u00e1n", "shape": "circle"}, {"color": "#00FF00", "id": "P", "label": "P", "shape": "circle"}, {"color": "#00FF00", "id": "R", "label": "R", "shape": "circle"}, {"color": "#00FF00", "id": "D", "label": "D", "shape": "circle"}, {"color": "#00FF00", "id": "K", "label": "K", "shape": "circle"}, {"color": "#00FF00", "id": "Slash (punctuation)", "label": "Slash (punctuation)", "shape": "circle"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "4", "label": "follows", "title": "follows", "to": "4"}, {"arrows": "to", "from": "I", "label": "follows", "title": "follows", "to": "I"}, {"arrows": "to", "from": "Madrid", "label": "country", "title": "country", "to": "Spain"}, {"arrows": "to", "from": "Spain", "label": "capital", "title": "capital", "to": "Madrid"}, {"arrows": "to", "from": "Spaniards", "label": "country", "title": "country", "to": "Spain"}, {"arrows": "to", "from": "Administrative division", "label": "country", "title": "country", "to": "Spain"}, {"arrows": "to", "from": "Libros", "label": "instance of", "title": "instance of", "to": "Libros"}, {"arrows": "to", "from": "M", "label": "part of", "title": "part of", "to": "F"}, {"arrows": "to", "from": "Esperpento", "label": "instance of", "title": "instance of", "to": "Esperpento"}, {"arrows": "to", "from": "Cabeza", "label": "part of", "title": "part of", "to": "Cabeza"}, {"arrows": "to", "from": "Misterio", "label": "instance of", "title": "instance of", "to": "Misterio"}, {"arrows": "to", "from": "N", "label": "part of", "title": "part of", "to": "N"}, {"arrows": "to", "from": "C", "label": "part of", "title": "part of", "to": "\u00da"}, {"arrows": "to", "from": "M", "label": "part of", "title": "part of", "to": "\u00da"}, {"arrows": "to", "from": "Achaemenid coinage", "label": "follows", "title": "follows", "to": "Achaemenid coinage"}, {"arrows": "to", "from": "Achaemenid coinage", "label": "part of", "title": "part of", "to": "Achaemenid coinage"}, {"arrows": "to", "from": "Sensaciones", "label": "instance of", "title": "instance of", "to": "Formas"}, {"arrows": "to", "from": "Formas", "label": "instance of", "title": "instance of", "to": "Sensaciones"}, {"arrows": "to", "from": "Cubismo", "label": "instance of", "title": "instance of", "to": "C"}, {"arrows": "to", "from": "Cubismo", "label": "part of", "title": "part of", "to": "C"}, {"arrows": "to", "from": "Cubismo", "label": "part of", "title": "part of", "to": "O"}, {"arrows": "to", "from": "Alejandro Ferrant y Fischermans", "label": "child", "title": "child", "to": "\u00c1ngel Ferrant"}, {"arrows": "to", "from": "Maestro", "label": "instance of", "title": "instance of", "to": "Maestro"}, {"arrows": "to", "from": "Recreo", "label": "instance of", "title": "instance of", "to": "Dise\u00f1o"}, {"arrows": "to", "from": "Recreo", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Recreo", "label": "part of", "title": "part of", "to": "Dise\u00f1o"}, {"arrows": "to", "from": "Intellectual", "label": "instance of", "title": "instance of", "to": "Forma viva"}, {"arrows": "to", "from": "Horas", "label": "part of", "title": "part of", "to": "Minutos"}, {"arrows": "to", "from": "Horas", "label": "part of", "title": "part of", "to": "Horas"}, {"arrows": "to", "from": "Inercia", "label": "instance of", "title": "instance of", "to": "Administrative division"}, {"arrows": "to", "from": "F", "label": "part of", "title": "part of", "to": "J"}, {"arrows": "to", "from": "F* (programming language)", "label": "part of", "title": "part of", "to": "F* (programming language)"}, {"arrows": "to", "from": "Foco", "label": "part of", "title": "part of", "to": "Centros Ltd v Erhvervs- og Selskabsstyrelsen"}, {"arrows": "to", "from": "Elite", "label": "instance of", "title": "instance of", "to": "Masa"}, {"arrows": "to", "from": "Masa", "label": "part of", "title": "part of", "to": "Elite"}, {"arrows": "to", "from": "Elite", "label": "part of", "title": "part of", "to": "Masa"}, {"arrows": "to", "from": "E", "label": "named after", "title": "named after", "to": "E"}, {"arrows": "to", "from": "E", "label": "part of", "title": "part of", "to": "E"}, {"arrows": "to", "from": "Albert Gleizes", "label": "genre", "title": "genre", "to": "Locura"}, {"arrows": "to", "from": "Intellectual", "label": "instance of", "title": "instance of", "to": "Intellectual"}, {"arrows": "to", "from": "Clase", "label": "instance of", "title": "instance of", "to": "Taller"}, {"arrows": "to", "from": "A", "label": "instance of", "title": "instance of", "to": "Plan"}, {"arrows": "to", "from": "S", "label": "instance of", "title": "instance of", "to": "Duda"}, {"arrows": "to", "from": "H", "label": "part of", "title": "part of", "to": "S"}, {"arrows": "to", "from": "C", "label": "part of", "title": "part of", "to": "S"}, {"arrows": "to", "from": "\u00da", "label": "part of", "title": "part of", "to": "M"}, {"arrows": "to", "from": "S", "label": "part of", "title": "part of", "to": "C"}, {"arrows": "to", "from": "Administrative division", "label": "instance of", "title": "instance of", "to": "Sistema"}, {"arrows": "to", "from": "Patio", "label": "location", "title": "location", "to": "Buenos Aires"}, {"arrows": "to", "from": "Buenos Aires", "label": "shares border with", "title": "shares border with", "to": "Patio"}, {"arrows": "to", "from": "Buenos Aires", "label": "shares border with", "title": "shares border with", "to": "Montevideo"}, {"arrows": "to", "from": "Buenos Aires", "label": "country", "title": "country", "to": "Pa\u00eds"}, {"arrows": "to", "from": "Montevideo", "label": "country", "title": "country", "to": "Pa\u00eds"}, {"arrows": "to", "from": "Bullfighter", "label": "instance of", "title": "instance of", "to": "Ni\u00f1a"}, {"arrows": "to", "from": "Caballito, Buenos Aires", "label": "location", "title": "location", "to": "Buenos Aires"}, {"arrows": "to", "from": "Flores", "label": "location", "title": "location", "to": "Buenos Aires"}, {"arrows": "to", "from": "Villa Crespo", "label": "location", "title": "location", "to": "Buenos Aires"}, {"arrows": "to", "from": "Gam\u00e1s", "label": "instance of", "title": "instance of", "to": "Melod\u00eda"}, {"arrows": "to", "from": "Pablo Picasso", "label": "notable work", "title": "notable work", "to": "Charter of the Rights of the Family"}, {"arrows": "to", "from": "Arte", "label": "instance of", "title": "instance of", "to": "Art\u00e9s"}, {"arrows": "to", "from": "Arte", "label": "part of", "title": "part of", "to": "Art\u00e9s"}, {"arrows": "to", "from": "Florent Fels", "label": "spouse", "title": "spouse", "to": "Pablo Picasso"}, {"arrows": "to", "from": "Pablo Picasso", "label": "spouse", "title": "spouse", "to": "Florent Fels"}, {"arrows": "to", "from": "Diablos Motorcycle Club", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Un d\u00eda", "label": "author", "title": "author", "to": "Jean Cocteau"}, {"arrows": "to", "from": "Moises", "label": "notable work", "title": "notable work", "to": "Moises"}, {"arrows": "to", "from": "Moises", "label": "named after", "title": "named after", "to": "Moises"}, {"arrows": "to", "from": "Moises", "label": "author", "title": "author", "to": "Moises"}, {"arrows": "to", "from": "Pin", "label": "instance of", "title": "instance of", "to": "Meanings of minor planet names: 33001\u201334000"}, {"arrows": "to", "from": "Idea", "label": "part of", "title": "part of", "to": "Cosa"}, {"arrows": "to", "from": "Cubismo", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Colores", "label": "part of", "title": "part of", "to": "Cubismo"}, {"arrows": "to", "from": "Cubismo", "label": "instance of", "title": "instance of", "to": "Colores"}, {"arrows": "to", "from": "Jean-Jacques Rousseau", "label": "country of citizenship", "title": "country of citizenship", "to": "Aduaneros"}, {"arrows": "to", "from": "Jean-Jacques Rousseau", "label": "country", "title": "country", "to": "Aduaneros"}, {"arrows": "to", "from": "Lienzo", "label": "part of", "title": "part of", "to": "Lienzo"}, {"arrows": "to", "from": "Lienzo", "label": "instance of", "title": "instance of", "to": "Lienzo"}, {"arrows": "to", "from": "Futuro", "label": "follows", "title": "follows", "to": "Pasado"}, {"arrows": "to", "from": "Pasado", "label": "follows", "title": "follows", "to": "Futuro"}, {"arrows": "to", "from": "Pasado", "label": "part of", "title": "part of", "to": "Arte"}, {"arrows": "to", "from": "Futuro", "label": "part of", "title": "part of", "to": "Arte"}, {"arrows": "to", "from": "Griegos", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Jean-Auguste-Dominique Ingres", "label": "spouse", "title": "spouse", "to": "Eug\u00e8ne Delacroix"}, {"arrows": "to", "from": "Jean-Auguste-Dominique Ingres", "label": "sibling", "title": "sibling", "to": "Eug\u00e8ne Delacroix"}, {"arrows": "to", "from": "Barcelona", "label": "country", "title": "country", "to": "Spain"}, {"arrows": "to", "from": "Montevideo", "label": "country", "title": "country", "to": "Uruguay"}, {"arrows": "to", "from": "Th\u00e9ophile Steinlen", "label": "sibling", "title": "sibling", "to": "Henri de Toulouse-Lautrec"}, {"arrows": "to", "from": "Th\u00e9ophile Steinlen", "label": "spouse", "title": "spouse", "to": "Henri de Toulouse-Lautrec"}, {"arrows": "to", "from": "Th\u00e9ophile Steinlen", "label": "influenced by", "title": "influenced by", "to": "Henri de Toulouse-Lautrec"}, {"arrows": "to", "from": "Barradas", "label": "place of birth", "title": "place of birth", "to": "Barcelona"}, {"arrows": "to", "from": "Barradas", "label": "location", "title": "location", "to": "Barcelona"}, {"arrows": "to", "from": "Barradas", "label": "shares border with", "title": "shares border with", "to": "Barcelona"}, {"arrows": "to", "from": "Juan Gris", "label": "spouse", "title": "spouse", "to": "Mar\u00eda Blanchard"}, {"arrows": "to", "from": "Renacimiento", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Am\u00e9d\u00e9e Ozenfant", "label": "genre", "title": "genre", "to": "Cubismo"}, {"arrows": "to", "from": "Cubismo", "label": "founded by", "title": "founded by", "to": "Jeanneret"}, {"arrows": "to", "from": "Jeanneret", "label": "genre", "title": "genre", "to": "Cubismo"}, {"arrows": "to", "from": "Gris", "label": "instance of", "title": "instance of", "to": "Color"}, {"arrows": "to", "from": "Armed Police Corps", "label": "instance of", "title": "instance of", "to": "Color"}, {"arrows": "to", "from": "Blancas", "label": "instance of", "title": "instance of", "to": "Color"}, {"arrows": "to", "from": "Maya peoples", "label": "instance of", "title": "instance of", "to": "Aztecas UDLAP"}, {"arrows": "to", "from": "Fa\u00e7ade", "label": "part of", "title": "part of", "to": "Puebloans"}, {"arrows": "to", "from": "Fallo", "label": "instance of", "title": "instance of", "to": "Fallo"}, {"arrows": "to", "from": "Oboe", "label": "part of", "title": "part of", "to": "Concierto"}, {"arrows": "to", "from": "Problema", "label": "instance of", "title": "instance of", "to": "Misterio"}, {"arrows": "to", "from": "Misterio", "label": "instance of", "title": "instance of", "to": "Problema"}, {"arrows": "to", "from": "Misterio", "label": "part of", "title": "part of", "to": "Problema"}, {"arrows": "to", "from": "Dos Caras", "label": "instance of", "title": "instance of", "to": "Arte"}, {"arrows": "to", "from": "Dos Caras", "label": "part of", "title": "part of", "to": "Arte"}, {"arrows": "to", "from": "Vasco N\u00fa\u00f1ez de Balboa", "label": "part of", "title": "part of", "to": "Persona"}, {"arrows": "to", "from": "Persona", "label": "part of", "title": "part of", "to": "Vasco N\u00fa\u00f1ez de Balboa"}, {"arrows": "to", "from": "Vasco N\u00fa\u00f1ez de Balboa", "label": "part of", "title": "part of", "to": "Person"}, {"arrows": "to", "from": "Francisco Goya", "label": "occupation", "title": "occupation", "to": "Pintor"}, {"arrows": "to", "from": "R3hab discography", "label": "location", "title": "location", "to": "Camille Saint-Sa\u00ebns"}, {"arrows": "to", "from": "R3hab discography", "label": "headquarters location", "title": "headquarters location", "to": "Camille Saint-Sa\u00ebns"}, {"arrows": "to", "from": "William Shakespeare", "label": "notable work", "title": "notable work", "to": "Nikolai Gogol"}, {"arrows": "to", "from": "Arte", "label": "part of", "title": "part of", "to": "Culture"}, {"arrows": "to", "from": "Marzo", "label": "follows", "title": "follows", "to": "Marzo"}, {"arrows": "to", "from": "Joaqu\u00edn Valverde Dur\u00e1n", "label": "place of birth", "title": "place of birth", "to": "Madrid"}, {"arrows": "to", "from": "P", "label": "follows", "title": "follows", "to": "I"}, {"arrows": "to", "from": "F", "label": "follows", "title": "follows", "to": "R"}, {"arrows": "to", "from": "I", "label": "follows", "title": "follows", "to": "F"}, {"arrows": "to", "from": "S", "label": "part of", "title": "part of", "to": "H"}, {"arrows": "to", "from": "R", "label": "part of", "title": "part of", "to": "H"}, {"arrows": "to", "from": "D", "label": "part of", "title": "part of", "to": "S"}, {"arrows": "to", "from": "S", "label": "part of", "title": "part of", "to": "D"}, {"arrows": "to", "from": "C", "label": "replaces", "title": "replaces", "to": "S"}, {"arrows": "to", "from": "M", "label": "part of", "title": "part of", "to": "C"}, {"arrows": "to", "from": "K", "label": "part of", "title": "part of", "to": "C"}, {"arrows": "to", "from": "Slash (punctuation)", "label": "follows", "title": "follows", "to": "Slash (punctuation)"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 200,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+                      network.on("stabilizationProgress", function(params) {
+                          document.getElementById('loadingBar').removeAttribute("style");
+                          var maxWidth = 496;
+                          var minWidth = 20;
+                          var widthFactor = params.iterations/params.total;
+                          var width = Math.max(minWidth,maxWidth * widthFactor);
+                          document.getElementById('bar').style.width = width + 'px';
+                          document.getElementById('text').innerHTML = Math.round(widthFactor*100) + '%';
+                      });
+                      network.once("stabilizationIterationsDone", function() {
+                          document.getElementById('text').innerHTML = '100%';
+                          document.getElementById('bar').style.width = '496px';
+                          document.getElementById('loadingBar').style.opacity = 0;
+                          // really clean the dom element
+                          setTimeout(function () {document.getElementById('loadingBar').style.display = 'none';}, 500);
+                      });
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

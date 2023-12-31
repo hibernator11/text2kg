@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 700px;
+                 height: 700px;
+                 background-color: #eeeeee;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#00FF00", "id": "Government", "label": "Government", "shape": "circle"}, {"color": "#00FF00", "id": "Mumbai", "label": "Mumbai", "shape": "circle"}, {"color": "#00FF00", "id": "Bombay Presidency", "label": "Bombay Presidency", "shape": "circle"}, {"color": "#00FF00", "id": "February", "label": "February", "shape": "circle"}, {"color": "#00FF00", "id": "1914", "label": "1914", "shape": "circle"}, {"color": "#00FF00", "id": "England", "label": "England", "shape": "circle"}, {"color": "#00FF00", "id": "Grindlay", "label": "Grindlay", "shape": "circle"}, {"color": "#00FF00", "id": "London", "label": "London", "shape": "circle"}, {"color": "#00FF00", "id": "Charles Kegan Paul", "label": "Charles Kegan Paul", "shape": "circle"}, {"color": "#00FF00", "id": "Grafton Street", "label": "Grafton Street", "shape": "circle"}, {"color": "#00FF00", "id": "Bond Street", "label": "Bond Street", "shape": "circle"}, {"color": "#00FF00", "id": "Adelphi, London", "label": "Adelphi, London", "shape": "circle"}, {"color": "#00FF00", "id": "Otto Harrassowitz", "label": "Otto Harrassowitz", "shape": "circle"}, {"color": "#00FF00", "id": "Leipzig", "label": "Leipzig", "shape": "circle"}, {"color": "#00FF00", "id": "Martinus Nijhoff", "label": "Martinus Nijhoff", "shape": "circle"}, {"color": "#00FF00", "id": "The Hague", "label": "The Hague", "shape": "circle"}, {"color": "#00FF00", "id": "India", "label": "India", "shape": "circle"}, {"color": "#00FF00", "id": "Higginbotham", "label": "Higginbotham", "shape": "circle"}, {"color": "#00FF00", "id": "Chennai", "label": "Chennai", "shape": "circle"}, {"color": "#00FF00", "id": "Vagrancy", "label": "Vagrancy", "shape": "circle"}, {"color": "#00FF00", "id": "Leprosy", "label": "Leprosy", "shape": "circle"}, {"color": "#00FF00", "id": "Disease", "label": "Disease", "shape": "circle"}, {"color": "#00FF00", "id": "Tuberculosis", "label": "Tuberculosis", "shape": "circle"}, {"color": "#00FF00", "id": "Syphilis", "label": "Syphilis", "shape": "circle"}, {"color": "#00FF00", "id": "City", "label": "City", "shape": "circle"}, {"color": "#00FF00", "id": "Town", "label": "Town", "shape": "circle"}, {"color": "#00FF00", "id": "Colony", "label": "Colony", "shape": "circle"}, {"color": "#00FF00", "id": "Magistrate", "label": "Magistrate", "shape": "circle"}, {"color": "#00FF00", "id": "Police", "label": "Police", "shape": "circle"}, {"color": "#00FF00", "id": "Territory", "label": "Territory", "shape": "circle"}, {"color": "#00FF00", "id": "Local government", "label": "Local government", "shape": "circle"}, {"color": "#00FF00", "id": "Public", "label": "Public", "shape": "circle"}, {"color": "#00FF00", "id": "Progress", "label": "Progress", "shape": "circle"}, {"color": "#00FF00", "id": "Matunga", "label": "Matunga", "shape": "circle"}, {"color": "#00FF00", "id": "Municipal corporation", "label": "Municipal corporation", "shape": "circle"}, {"color": "#00FF00", "id": "Pune", "label": "Pune", "shape": "circle"}, {"color": "#00FF00", "id": "Film", "label": "Film", "shape": "circle"}, {"color": "#00FF00", "id": "Belgaum", "label": "Belgaum", "shape": "circle"}, {"color": "#00FF00", "id": "Bijpur", "label": "Bijpur", "shape": "circle"}, {"color": "#00FF00", "id": "Rupee", "label": "Rupee", "shape": "circle"}, {"color": "#00FF00", "id": "7000 (number)", "label": "7000 (number)", "shape": "circle"}, {"color": "#00FF00", "id": "5000 (number)", "label": "5000 (number)", "shape": "circle"}, {"color": "#00FF00", "id": "Quantity", "label": "Quantity", "shape": "circle"}, {"color": "#00FF00", "id": "Necessity and sufficiency", "label": "Necessity and sufficiency", "shape": "circle"}, {"color": "#00FF00", "id": "Wall", "label": "Wall", "shape": "circle"}, {"color": "#00FF00", "id": "Fence", "label": "Fence", "shape": "circle"}, {"color": "#00FF00", "id": "Laundry", "label": "Laundry", "shape": "circle"}, {"color": "#00FF00", "id": "Domestic worker", "label": "Domestic worker", "shape": "circle"}, {"color": "#00FF00", "id": "Faith", "label": "Faith", "shape": "circle"}, {"color": "#00FF00", "id": "Prisoner", "label": "Prisoner", "shape": "circle"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Government", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "Bombay Presidency", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "February", "label": "part of", "title": "part of", "to": "1914"}, {"arrows": "to", "from": "February", "label": "inception", "title": "inception", "to": "1914"}, {"arrows": "to", "from": "England", "label": "location", "title": "location", "to": "England"}, {"arrows": "to", "from": "Grindlay", "label": "headquarters location", "title": "headquarters location", "to": "London"}, {"arrows": "to", "from": "Charles Kegan Paul", "label": "place of birth", "title": "place of birth", "to": "London"}, {"arrows": "to", "from": "Grafton Street", "label": "shares border with", "title": "shares border with", "to": "Bond Street"}, {"arrows": "to", "from": "Adelphi, London", "label": "location", "title": "location", "to": "London"}, {"arrows": "to", "from": "Otto Harrassowitz", "label": "place of birth", "title": "place of birth", "to": "Leipzig"}, {"arrows": "to", "from": "Martinus Nijhoff", "label": "place of birth", "title": "place of birth", "to": "The Hague"}, {"arrows": "to", "from": "Martinus Nijhoff", "label": "location", "title": "location", "to": "The Hague"}, {"arrows": "to", "from": "India", "label": "country", "title": "country", "to": "India"}, {"arrows": "to", "from": "Higginbotham", "label": "headquarters location", "title": "headquarters location", "to": "Chennai"}, {"arrows": "to", "from": "Mumbai", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "Mumbai", "label": "country", "title": "country", "to": "India"}, {"arrows": "to", "from": "Vagrancy", "label": "instance of", "title": "instance of", "to": "Leprosy"}, {"arrows": "to", "from": "Leprosy", "label": "instance of", "title": "instance of", "to": "Disease"}, {"arrows": "to", "from": "Leprosy", "label": "instance of", "title": "instance of", "to": "Tuberculosis"}, {"arrows": "to", "from": "Leprosy", "label": "instance of", "title": "instance of", "to": "Syphilis"}, {"arrows": "to", "from": "City", "label": "instance of", "title": "instance of", "to": "Town"}, {"arrows": "to", "from": "Colony", "label": "instance of", "title": "instance of", "to": "Town"}, {"arrows": "to", "from": "Magistrate", "label": "part of", "title": "part of", "to": "Police"}, {"arrows": "to", "from": "Territory", "label": "instance of", "title": "instance of", "to": "Local government"}, {"arrows": "to", "from": "Territory", "label": "part of", "title": "part of", "to": "Local government"}, {"arrows": "to", "from": "Public", "label": "instance of", "title": "instance of", "to": "Progress"}, {"arrows": "to", "from": "Mumbai", "label": "instance of", "title": "instance of", "to": "City"}, {"arrows": "to", "from": "Matunga", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "Municipal corporation", "label": "headquarters location", "title": "headquarters location", "to": "Mumbai"}, {"arrows": "to", "from": "Municipal corporation", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "Pune", "label": "instance of", "title": "instance of", "to": "Film"}, {"arrows": "to", "from": "Pune", "label": "cast member", "title": "cast member", "to": "Pune"}, {"arrows": "to", "from": "Pune", "label": "child", "title": "child", "to": "Pune"}, {"arrows": "to", "from": "Belgaum", "label": "shares border with", "title": "shares border with", "to": "Bijpur"}, {"arrows": "to", "from": "Belgaum", "label": "location", "title": "location", "to": "Bijpur"}, {"arrows": "to", "from": "Belgaum", "label": "location", "title": "location", "to": "Belgaum"}, {"arrows": "to", "from": "Rupee", "label": "part of", "title": "part of", "to": "7000 (number)"}, {"arrows": "to", "from": "Town", "label": "location", "title": "location", "to": "Mumbai"}, {"arrows": "to", "from": "Mumbai", "label": "instance of", "title": "instance of", "to": "Town"}, {"arrows": "to", "from": "5000 (number)", "label": "instance of", "title": "instance of", "to": "Quantity"}, {"arrows": "to", "from": "Necessity and sufficiency", "label": "instance of", "title": "instance of", "to": "Quantity"}, {"arrows": "to", "from": "Wall", "label": "instance of", "title": "instance of", "to": "Fence"}, {"arrows": "to", "from": "Wall", "label": "part of", "title": "part of", "to": "Fence"}, {"arrows": "to", "from": "Laundry", "label": "instance of", "title": "instance of", "to": "Domestic worker"}, {"arrows": "to", "from": "Faith", "label": "instance of", "title": "instance of", "to": "Faith"}, {"arrows": "to", "from": "Prisoner", "label": "part of", "title": "part of", "to": "Faith"}, {"arrows": "to", "from": "Faith", "label": "instance of", "title": "instance of", "to": "Prisoner"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 200,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>

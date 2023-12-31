@@ -1,0 +1,163 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        
+            <script src="lib/bindings/utils.js"></script>
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/dist/vis-network.min.css" integrity="sha512-WgxfT5LWjfszlPHXRmBWHkV2eceiWTOBvrKCNbdgDYTHrT2AeLCGbF4sZlZw3UMN3WtL0tGUoIAKsu8mllg/XA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/vis-network/9.1.2/dist/vis-network.min.js" integrity="sha512-LnvoEWDFrqGHlHmDD2101OrLcbsfkrzoSpvtSQtxK3RMnRV0eOkhhBN2dXHKRrUU8p2DGRTk35n4O8nWSVe1mQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            
+        
+<center>
+<h1></h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+        <link
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6"
+          crossorigin="anonymous"
+        />
+        <script
+          src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-JEW9xMcG8R+pH31jmWH6WWP0WintQrMb4s7ZOdauHnUtxwoG2vI5DkLtS3qm9Ekf"
+          crossorigin="anonymous"
+        ></script>
+
+
+        <center>
+          <h1></h1>
+        </center>
+        <style type="text/css">
+
+             #mynetwork {
+                 width: 700px;
+                 height: 700px;
+                 background-color: #eeeeee;
+                 border: 1px solid lightgray;
+                 position: relative;
+                 float: left;
+             }
+
+             
+
+             
+
+             
+        </style>
+    </head>
+
+
+    <body>
+        <div class="card" style="width: 100%">
+            
+            
+            <div id="mynetwork" class="card-body"></div>
+        </div>
+
+        
+        
+
+        <script type="text/javascript">
+
+              // initialize global variables.
+              var edges;
+              var nodes;
+              var allNodes;
+              var allEdges;
+              var nodeColors;
+              var originalNodes;
+              var network;
+              var container;
+              var options, data;
+              var filter = {
+                  item : '',
+                  property : '',
+                  value : []
+              };
+
+              
+
+              
+
+              // This method is responsible for drawing the graph, returns the drawn network
+              function drawGraph() {
+                  var container = document.getElementById('mynetwork');
+
+                  
+
+                  // parsing and collecting nodes and edges from the python
+                  nodes = new vis.DataSet([{"color": "#00FF00", "id": "Titanic", "label": "Titanic", "shape": "circle"}, {"color": "#00FF00", "id": "White Star Line", "label": "White Star Line", "shape": "circle"}, {"color": "#00FF00", "id": "Mammoth", "label": "Mammoth", "shape": "circle"}, {"color": "#00FF00", "id": "Woman", "label": "Woman", "shape": "circle"}, {"color": "#00FF00", "id": "Child", "label": "Child", "shape": "circle"}, {"color": "#00FF00", "id": "Chicken", "label": "Chicken", "shape": "circle"}, {"color": "#00FF00", "id": "Poultry farming", "label": "Poultry farming", "shape": "circle"}, {"color": "#00FF00", "id": "Mr.", "label": "Mr.", "shape": "circle"}, {"color": "#00FF00", "id": "Will-o\u0027-the-wisp", "label": "Will-o\u0027-the-wisp", "shape": "circle"}, {"color": "#00FF00", "id": "Smyrna", "label": "Smyrna", "shape": "circle"}, {"color": "#00FF00", "id": "Music director", "label": "Music director", "shape": "circle"}, {"color": "#00FF00", "id": "Teacher", "label": "Teacher", "shape": "circle"}, {"color": "#00FF00", "id": "Music", "label": "Music", "shape": "circle"}, {"color": "#00FF00", "id": "Night", "label": "Night", "shape": "circle"}, {"color": "#00FF00", "id": "Dorothy Short", "label": "Dorothy Short", "shape": "circle"}, {"color": "#00FF00", "id": "Trumpet", "label": "Trumpet", "shape": "circle"}, {"color": "#00FF00", "id": "1", "label": "1", "shape": "circle"}, {"color": "#00FF00", "id": "J", "label": "J", "shape": "circle"}, {"color": "#00FF00", "id": "Backslash", "label": "Backslash", "shape": "circle"}, {"color": "#00FF00", "id": "415", "label": "415", "shape": "circle"}, {"color": "#00FF00", "id": "San Francisco", "label": "San Francisco", "shape": "circle"}, {"color": "#00FF00", "id": "Telephone numbering plan", "label": "Telephone numbering plan", "shape": "circle"}, {"color": "#00FF00", "id": "Number", "label": "Number", "shape": "circle"}, {"color": "#00FF00", "id": "United States", "label": "United States", "shape": "circle"}, {"color": "#00FF00", "id": "Canada", "label": "Canada", "shape": "circle"}, {"color": "#00FF00", "id": "The Reverend", "label": "The Reverend", "shape": "circle"}, {"color": "#00FF00", "id": "July 1", "label": "July 1", "shape": "circle"}, {"color": "#00FF00", "id": "J\u0113ran", "label": "J\u0113ran", "shape": "circle"}]);
+                  edges = new vis.DataSet([{"arrows": "to", "from": "Titanic", "label": "owned by", "title": "owned by", "to": "White Star Line"}, {"arrows": "to", "from": "Titanic", "label": "instance of", "title": "instance of", "to": "Mammoth"}, {"arrows": "to", "from": "Woman", "label": "opposite of", "title": "opposite of", "to": "Child"}, {"arrows": "to", "from": "Child", "label": "opposite of", "title": "opposite of", "to": "Woman"}, {"arrows": "to", "from": "Chicken", "label": "part of", "title": "part of", "to": "Poultry farming"}, {"arrows": "to", "from": "Poultry farming", "label": "made from material", "title": "made from material", "to": "Chicken"}, {"arrows": "to", "from": "Poultry farming", "label": "contains", "title": "contains", "to": "Chicken"}, {"arrows": "to", "from": "Mr.", "label": "part of", "title": "part of", "to": "Mr."}, {"arrows": "to", "from": "Mr.", "label": "characters", "title": "characters", "to": "Mr."}, {"arrows": "to", "from": "Mr.", "label": "different from", "title": "different from", "to": "Mr."}, {"arrows": "to", "from": "Will-o\u0027-the-wisp", "label": "performer", "title": "performer", "to": "Smyrna"}, {"arrows": "to", "from": "Music director", "label": "subclass of", "title": "subclass of", "to": "Teacher"}, {"arrows": "to", "from": "Music director", "label": "field of this occupation", "title": "field of this occupation", "to": "Music"}, {"arrows": "to", "from": "Music director", "label": "field of work", "title": "field of work", "to": "Music"}, {"arrows": "to", "from": "Night", "label": "part of", "title": "part of", "to": "Night"}, {"arrows": "to", "from": "Night", "label": "follows", "title": "follows", "to": "Night"}, {"arrows": "to", "from": "Dorothy Short", "label": "instrument", "title": "instrument", "to": "Trumpet"}, {"arrows": "to", "from": "1", "label": "event interval", "title": "event interval", "to": "1"}, {"arrows": "to", "from": "J", "label": "part of", "title": "part of", "to": "Backslash"}, {"arrows": "to", "from": "Backslash", "label": "part of", "title": "part of", "to": "1"}, {"arrows": "to", "from": "Backslash", "label": "event interval", "title": "event interval", "to": "1"}, {"arrows": "to", "from": "415", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "San Francisco"}, {"arrows": "to", "from": "415", "label": "instance of", "title": "instance of", "to": "Telephone numbering plan"}, {"arrows": "to", "from": "Telephone numbering plan", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "San Francisco"}, {"arrows": "to", "from": "Number", "label": "different from", "title": "different from", "to": "Number"}, {"arrows": "to", "from": "United States", "label": "diplomatic relation", "title": "diplomatic relation", "to": "Canada"}, {"arrows": "to", "from": "Canada", "label": "diplomatic relation", "title": "diplomatic relation", "to": "United States"}, {"arrows": "to", "from": "The Reverend", "label": "subclass of", "title": "subclass of", "to": "The Reverend"}, {"arrows": "to", "from": "The Reverend", "label": "office held by head of the organization", "title": "office held by head of the organization", "to": "The Reverend"}, {"arrows": "to", "from": "July 1", "label": "point in time", "title": "point in time", "to": "July 1"}, {"arrows": "to", "from": "July 1", "label": "follows", "title": "follows", "to": "July 1"}, {"arrows": "to", "from": "J\u0113ran", "label": "located in the administrative territorial entity", "title": "located in the administrative territorial entity", "to": "J\u0113ran"}]);
+
+                  nodeColors = {};
+                  allNodes = nodes.get({ returnType: "Object" });
+                  for (nodeId in allNodes) {
+                    nodeColors[nodeId] = allNodes[nodeId].color;
+                  }
+                  allEdges = edges.get({ returnType: "Object" });
+                  // adding nodes and edges to the graph
+                  data = {nodes: nodes, edges: edges};
+
+                  var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 200,
+            "springConstant": 0.05,
+            "springLength": 200
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+
+                  
+
+
+                  
+
+                  network = new vis.Network(container, data, options);
+
+                  
+
+                  
+
+                  
+
+
+                  
+
+                  return network;
+
+              }
+              drawGraph();
+        </script>
+    </body>
+</html>
