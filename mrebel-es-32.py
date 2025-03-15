@@ -40,7 +40,9 @@ def extract_triplets_typed(text):
                 object_ += ' ' + token
             elif current == 'o':
                 relation += ' ' + token
+    #print(subject, relation, object_)
     if subject != '' and relation != '' and object_ != '' and object_type != '' and subject_type != '':
+        #print("entra")
         triplets.append({'head': subject.strip(), 'head_type': subject_type, 'type': relation.strip(),'tail': object_.strip(), 'tail_type': object_type})
     return triplets
 
@@ -92,10 +94,14 @@ with open(folder+text_file+'.txt') as f:
         # Extract triplets
         for idx, sentence in enumerate(decoded_preds):
             print(f'Prediction triplets sentence {idx}')
-            #print(extract_triplets_typed(sentence))
+            print(extract_triplets_typed(sentence))
             relations = extract_triplets_typed(sentence)
+            print(relations)
             for relation in relations:
+                print('viene a meter relation kg')
                 kg.add_relation(relation)
+    
+    kg.print()
 
     with open('output/pickle/kb_rebel32_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
         pickle.dump(kg, f)

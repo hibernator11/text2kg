@@ -21,6 +21,7 @@ import sys
 model = sys.argv[1]
 org_folder = sys.argv[2]
 text_file = sys.argv[3]
+print('output/pickle/kb_rebel'+model+'_'+org_folder+'_'+ text_file+'.pickle')
 
 with open('output/pickle/kb_rebel'+model+'_'+org_folder+'_'+ text_file+'.pickle', 'rb') as pickle_file:
     kg = pickle.load(pickle_file)

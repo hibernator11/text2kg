@@ -70,8 +70,8 @@ class KG():
         except:
             return None
 
-    def add_entity(self, e):
-        self.entities[e["title"]] = {k:v for k,v in e.items() if k != "title"}
+    #def add_entity(self, e):
+    #    self.entities[e["title"]] = {k:v for k,v in e.items() if k != "title"}
 
     def add_relation(self, r):
         # check on wikipedia
@@ -79,22 +79,27 @@ class KG():
         entities = [self.get_wikipedia_data(ent) for ent in candidate_entities]
 
         # if one entity does not exist, stop
-        if any(ent is None for ent in entities):
-            return
+        #if any(ent is None for ent in entities):
+        #    return
 
         # manage new entities
-        for e in entities:
-            self.add_entity(e)
+        #print(entities)
+        #if any(ent is None for ent in entities):
+        #    for e in entities:
+        #        self.add_entity(e)
 
         # rename relation entities with their wikipedia titles
-        r["head"] = entities[0]["title"]
-        r["tail"] = entities[1]["title"]
+        #r["head"] = entities[0]["title"]
+        #r["tail"] = entities[1]["title"]
+
+        print("add_relation()")
 
         # manage new relation
-        if not self.exists_relation(r):
-            self.relations.append(r)
-        else:
-            self.merge_relations(r)
+        #if not self.exists_relation(r):
+        #    print("no existe y la mete")
+        self.relations.append(r)
+        #else:
+        #    self.merge_relations(r)
 
     def print(self):
         print("Entities:" + str(len(self.entities)))
