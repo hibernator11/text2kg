@@ -1,0 +1,29 @@
+
+model 32 properties
+https://www.museodelprado.es/coleccion/obra-de-arte/el-sacrificio-de-isaac/fceb6dfc-8c70-4e15-bcd9-f6ca3920511c
+
+
+Relations:22
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'Dios', 'head_type': 'misc', 'type': 'child', 'tail': 'Abraham', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'Isaac', 'head_type': 'per', 'type': 'child', 'tail': 'Abraham', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'su hijo', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'hijo', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'episodio bíblico', 'head_type': 'concept', 'type': 'characters', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'episodio bíblico', 'head_type': 'media', 'type': 'characters', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'pendiente', 'head_type': 'concept', 'type': 'part of', 'tail': 'ladera', 'tail_type': 'concept'}
+  {'head': 'pendiente', 'head_type': 'concept', 'type': 'instance of', 'tail': 'ladera', 'tail_type': 'concept'}
+  {'head': 'pendiente', 'head_type': 'concept', 'type': 'part of', 'tail': 'composición', 'tail_type': 'concept'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'hijo', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'su hijo', 'tail_type': 'per'}
+  {'head': 'viejo Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'su hijo', 'tail_type': 'per'}
+  {'head': 'carnero', 'head_type': 'concept', 'type': 'owned by', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'carnero enviado por Dios', 'head_type': 'misc', 'type': 'instance of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'carnero enviado por Dios', 'head_type': 'concept', 'type': 'instance of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'patriarca', 'head_type': 'concept', 'type': 'instance of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'azul', 'head_type': 'concept', 'type': 'part of', 'tail': 'tonos rosáceos', 'tail_type': 'concept'}
+  {'head': 'azul', 'head_type': 'concept', 'type': 'instance of', 'tail': 'tonos rosáceos', 'tail_type': 'concept'}
+

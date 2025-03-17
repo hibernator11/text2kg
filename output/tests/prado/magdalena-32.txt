@@ -1,0 +1,23 @@
+https://www.museodelprado.es/coleccion/obra-de-arte/la-magdalena-penitente/f19e84d6-dc58-4f37-b959-a16bcffcccfc
+Magdalena
+model 32 properties
+
+Relations:17
+  {'head': 'Magdalena penitente', 'head_type': 'org', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'per', 'type': 'notable work', 'tail': 'Magdalena penitente', 'tail_type': 'org'}
+  {'head': 'Magdalena penitente', 'head_type': 'concept', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'per', 'type': 'notable work', 'tail': 'Magdalena penitente', 'tail_type': 'concept'}
+  {'head': 'Magdalena penitente', 'head_type': 'media', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'per', 'type': 'notable work', 'tail': 'Magdalena penitente', 'tail_type': 'media'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'member of', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Murillo', 'head_type': 'per', 'type': 'member of', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'member of', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Murillo', 'head_type': 'per', 'type': 'member of', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'carmín', 'head_type': 'concept', 'type': 'instance of', 'tail': 'color', 'tail_type': 'concept'}
+  {'head': 'maestro valenciano', 'head_type': 'per', 'type': 'notable work', 'tail': 'venecianismo', 'tail_type': 'concept'}
+  {'head': 'maestro valenciano', 'head_type': 'per', 'type': 'notable work', 'tail': 'máximo venecianismo', 'tail_type': 'media'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'occupation', 'tail': 'artistas', 'tail_type': 'concept'}
+  {'head': 'Andrea Vaccaro', 'head_type': 'per', 'type': 'occupation', 'tail': 'artistas', 'tail_type': 'concept'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'occupation', 'tail': 'artistas', 'tail_type': 'concept'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'sibling', 'tail': 'Andrea Vaccaro', 'tail_type': 'per'}
+

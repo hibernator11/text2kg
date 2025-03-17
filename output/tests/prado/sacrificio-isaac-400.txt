@@ -1,0 +1,29 @@
+model 400 properties
+https://www.museodelprado.es/coleccion/obra-de-arte/el-sacrificio-de-isaac/fceb6dfc-8c70-4e15-bcd9-f6ca3920511c
+
+Relations:24
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'Dios', 'head_type': 'misc', 'type': 'child', 'tail': 'Abraham', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'Isaac', 'head_type': 'per', 'type': 'killed by', 'tail': 'Dios', 'tail_type': 'misc'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'misc', 'type': 'instance of', 'tail': 'Dios', 'tail_type': 'misc'}
+  {'head': 'Giordano', 'head_type': 'misc', 'type': 'significant event', 'tail': 'sacrificio', 'tail_type': 'concept'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'Isaac', 'tail_type': 'per'}
+  {'head': 'ángel', 'head_type': 'concept', 'type': 'part of', 'tail': 'friso', 'tail_type': 'concept'}
+  {'head': 'tea mencionada en el episodio bíblico', 'head_type': 'media', 'type': 'characters', 'tail': 'Abraham', 'tail_type': 'per'}
+  {'head': 'pendiente', 'head_type': 'concept', 'type': 'part of', 'tail': 'composición', 'tail_type': 'concept'}
+  {'head': 'pendiente', 'head_type': 'concept', 'type': 'part of', 'tail': 'ladera', 'tail_type': 'concept'}
+  {'head': 'ladera', 'head_type': 'concept', 'type': 'part of', 'tail': 'composición', 'tail_type': 'concept'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'hijo', 'tail_type': 'per'}
+  {'head': 'viejo Abraham', 'head_type': 'per', 'type': 'child', 'tail': 'hijo', 'tail_type': 'per'}
+  {'head': 'Abraham', 'head_type': 'per', 'type': 'cause of death', 'tail': 'degollar', 'tail_type': 'concept'}
+  {'head': 'carnero', 'head_type': 'concept', 'type': 'part of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'carnero', 'head_type': 'concept', 'type': 'subclass of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'carnero', 'head_type': 'concept', 'type': 'used by', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'patriarca', 'head_type': 'concept', 'type': 'subclass of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'patriarca', 'head_type': 'concept', 'type': 'opposite of', 'tail': 'ángel', 'tail_type': 'concept'}
+  {'head': 'ángel', 'head_type': 'concept', 'type': 'opposite of', 'tail': 'patriarca', 'tail_type': 'concept'}
+  {'head': 'patriarca', 'head_type': 'concept', 'type': 'opposite of', 'tail': 'ángel', 'tail_type': 'concept'}
+

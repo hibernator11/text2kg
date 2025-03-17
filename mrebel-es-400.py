@@ -97,6 +97,8 @@ with open(folder+text_file+'.txt') as f:
             for relation in relations:
                 kg.add_relation(relation)
 
+    kg.print()
+
     with open('output/pickle/kb_rebel400_'+ org_folder + '_' + text_file+'.pickle', 'wb') as f:
         pickle.dump(kg, f)
     

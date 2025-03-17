@@ -1,0 +1,23 @@
+
+model 32 properties
+https://www.museodelprado.es/coleccion/obra-de-arte/cristo-ante-pilatos/3a6afd5c-d52d-4136-b650-8817b4442bb2
+
+Relations:17
+  {'head': 'Lucas de Leiden', 'head_type': 'per', 'type': 'child', 'tail': 'Durero', 'tail_type': 'per'}
+  {'head': 'Lucas de Leiden', 'head_type': 'per', 'type': 'place of birth', 'tail': 'Durero', 'tail_type': 'loc'}
+  {'head': 'Durero', 'head_type': 'per', 'type': 'sibling', 'tail': 'Lucas de Leiden', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'per', 'type': 'country of citizenship', 'tail': 'alemanes', 'tail_type': 'loc'}
+  {'head': 'estilo', 'head_type': 'concept', 'type': 'country', 'tail': 'alemanes', 'tail_type': 'loc'}
+  {'head': 'técnica Giordano', 'head_type': 'concept', 'type': 'instance of', 'tail': 'estilo', 'tail_type': 'concept'}
+  {'head': 'pincelada', 'head_type': 'concept', 'type': 'instance of', 'tail': 'trazos', 'tail_type': 'concept'}
+  {'head': 'trazos', 'head_type': 'concept', 'type': 'part of', 'tail': 'pincelada', 'tail_type': 'concept'}
+  {'head': 'pincelada', 'head_type': 'concept', 'type': 'instance of', 'tail': 'trazo', 'tail_type': 'concept'}
+  {'head': 'Luca Giordano', 'head_type': 'per', 'type': 'notable work', 'tail': 'Casón del Buen Retiro', 'tail_type': 'loc'}
+  {'head': 'Úbeda de los Cobos', 'head_type': 'per', 'type': 'notable work', 'tail': 'Casón del Buen Retiro', 'tail_type': 'concept'}
+  {'head': 'Úbeda de los Cobos', 'head_type': 'per', 'type': 'notable work', 'tail': 'Casón del Buen Retiro', 'tail_type': 'loc'}
+  {'head': '171', 'head_type': 'time', 'type': 'follows', 'tail': '170', 'tail_type': 'time'}
+  {'head': '170', 'head_type': 'time', 'type': 'follows', 'tail': '171', 'tail_type': 'time'}
+  {'head': '171', 'head_type': 'time', 'type': 'follows', 'tail': '170', 'tail_type': 'time'}
+  {'head': '170', 'head_type': 'time', 'type': 'follows', 'tail': '171', 'tail_type': 'time'}
+  {'head': '171', 'head_type': 'time', 'type': 'follows', 'tail': '170', 'tail_type': 'time'}
+

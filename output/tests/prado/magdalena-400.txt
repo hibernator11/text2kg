@@ -1,0 +1,20 @@
+https://www.museodelprado.es/coleccion/obra-de-arte/la-magdalena-penitente/f19e84d6-dc58-4f37-b959-a16bcffcccfc
+Magdalena
+model 400 properties
+
+Relations:14
+  {'head': 'Magdalena penitente', 'head_type': 'concept', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Magdalena penitente', 'head_type': 'org', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Giordano', 'head_type': 'per', 'type': 'notable work', 'tail': 'Magdalena penitente', 'tail_type': 'org'}
+  {'head': 'Magdalena penitente', 'head_type': 'org', 'type': 'author', 'tail': 'Giordano', 'tail_type': 'per'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'has works in the collection', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Murillo', 'head_type': 'per', 'type': 'has works in the collection', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'has works in the collection', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'Murillo', 'head_type': 'per', 'type': 'has works in the collection', 'tail': 'Colección Real', 'tail_type': 'loc'}
+  {'head': 'maestro valenciano', 'head_type': 'per', 'type': 'religion', 'tail': 'venecianismo', 'tail_type': 'concept'}
+  {'head': 'maestro valenciano', 'head_type': 'per', 'type': 'position held', 'tail': 'maestro español', 'tail_type': 'per'}
+  {'head': 'maestro valenciano', 'head_type': 'per', 'type': 'movement', 'tail': 'máximo venecianismo', 'tail_type': 'concept'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'influenced by', 'tail': 'Andrea Vaccaro', 'tail_type': 'per'}
+  {'head': 'Andrea Vaccaro', 'head_type': 'per', 'type': 'influenced by', 'tail': 'Ribera', 'tail_type': 'per'}
+  {'head': 'Ribera', 'head_type': 'per', 'type': 'student', 'tail': 'Andrea Vaccaro', 'tail_type': 'per'}
+
