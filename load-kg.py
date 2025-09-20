@@ -27,6 +27,6 @@ with open('output/pickle/kb_rebel'+model+'_'+org_folder+'_'+ text_file+'.pickle'
     kg = pickle.load(pickle_file)
     kg.print()
     
-    network_file = model+'_'+org_folder+'_'+ text_file + '.html'
-    kg.save_network_html('output/network/'+network_file)
+    #network_file = model+'_'+org_folder+'_'+ text_file + '.html'
+    #kg.save_network_html('output/network/'+network_file)
     

@@ -1,7 +1,6 @@
 import wikipedia
 from SPARQLWrapper import SPARQLWrapper, JSON
 from collections import Counter
-import IPython
 from pyvis.network import Network
 
 
@@ -30,6 +29,7 @@ class KG():
             r2["meta"]["spans"] += spans_to_add       
             
     def get_wikipedia_data(self, candidate_entity):
+        print("get_wikipedia_data:" + candidate_entity)
         try:
             page = wikipedia.page(candidate_entity, auto_suggest=False)
             entity_data = {
@@ -56,7 +56,7 @@ class KG():
             }} LIMIT 1
             """.format(wikipedia_url)
             
-            print(query)
+            #print(query)
             
             sparql.setQuery(query)
             results = sparql.queryAndConvert()['results']['bindings']
@@ -65,41 +65,40 @@ class KG():
             for result in results:
                 idWikidata = result['item']['value']
                 break
-            
+            #print("get_wikidata_entity:" + idWikidata)
             return idWikidata
         except:
             return None
 
-    #def add_entity(self, e):
-    #    self.entities[e["title"]] = {k:v for k,v in e.items() if k != "title"}
+    def add_entity(self, e):
+        #print("add_entity:" + e["title"])
+        self.entities[e["title"]] = {k:v for k,v in e.items() if k != "title"}
 
     def add_relation(self, r):
         # check on wikipedia
         candidate_entities = [r["head"], r["tail"]]
         entities = [self.get_wikipedia_data(ent) for ent in candidate_entities]
 
-        # if one entity does not exist, stop
-        #if any(ent is None for ent in entities):
-        #    return
-
         # manage new entities
-        #print(entities)
+        #print("len entities:" + str(len(entities)))
         #if any(ent is None for ent in entities):
-        #    for e in entities:
-        #        self.add_entity(e)
+        print(len(entities))    
+        if len(entities) > 0:
+            for e in entities:
+                if type(e) != type(None):
+                    self.add_entity(e)
 
         # rename relation entities with their wikipedia titles
-        #r["head"] = entities[0]["title"]
-        #r["tail"] = entities[1]["title"]
-
-        print("add_relation()")
+        if type(entities[0]) != type(None):
+            r["head"] = entities[0]["title"]
+        if type(entities[1]) != type(None):
+            r["tail"] = entities[1]["title"]
 
         # manage new relation
-        #if not self.exists_relation(r):
-        #    print("no existe y la mete")
-        self.relations.append(r)
-        #else:
-        #    self.merge_relations(r)
+        if not self.exists_relation(r):
+            self.relations.append(r)
+        else:
+            self.merge_relations(r)
 
     def print(self):
         print("Entities:" + str(len(self.entities)))
@@ -160,7 +159,7 @@ class KG():
     def get_wikidata_ids(self):
         wikidata_ids = []
         for r in self.entities.items():
-            #print(r[1]['idWikidata'])
+            print(r[1]['idWikidata'])
             if 'idWikidata' in r[1] and r[1]['idWikidata'] != None:
                 wikidata_ids.append(r[1]['idWikidata'])
         return wikidata_ids
